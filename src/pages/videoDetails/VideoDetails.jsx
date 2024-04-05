@@ -8,10 +8,11 @@ import VideoDisplayRight from "../../components/videoCards/VideoDisplayRight";
 import { fetchSuggestedVideos } from "../../utils/fetchSuggestedVideos";
 import CommentCard from "../../components/cards/commentCard";
 import VideoComments from "../../components/videoCards/VideoComments";
+import Loader from "../../components/cards/loader/loader";
 
 const VideoDetails = () => {
   const { id } = useParams();
-  const { navOpen } = useContext(GlobalContext);
+  const { navOpen ,loading,setLoading} = useContext(GlobalContext);
   // const item = {
   //   kind: "youtube#videoListResponse",
 
@@ -86,8 +87,10 @@ const VideoDetails = () => {
   const [videData, setVideoData] = useState({});
   const [SuggestedVideos, setSuggestedVideos] = useState({});
   const fetchVideo = async () => {
+    setLoading(true)
     setVideoData(await fetchVideoData(id));
     setSuggestedVideos(await fetchSuggestedVideos(id));
+    setLoading(false)
   };
   useLayoutEffect(() => {
     fetchVideo();
@@ -95,6 +98,7 @@ const VideoDetails = () => {
   return (
     <>
       <Navbar />
+      {loading && <Loader/>}
       <div
         className={`max-sm:flex-col flex z-[80]  overflow-hidden scrollbar-hidden ${
           navOpen ? "max-sm:pl-[0rem] pl-[16rem]" : "max-sm:pl-0 pl-[6.5rem]"

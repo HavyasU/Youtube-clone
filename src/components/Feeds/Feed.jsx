@@ -5,16 +5,15 @@ import { GlobalContext } from "../../context/context";
 import { fetchHomeFeed } from "../../utils/fetchHomeFeed";
 
 const Feeds = ({ category }) => {
-  const { navOpen } = useContext(GlobalContext);
+  const { navOpen, loading, setLoading } = useContext(GlobalContext);
   const [videoData, setVideoData] = useState({});
   const fetchData = async () => {
+    setLoading(true);
     const fetchedData = await fetchCategoryData(category);
     if (fetchedData && fetchedData?.items?.length > 0)
       setVideoData(fetchedData);
     else alert(fetchedData);
-  };
-  const fetchFeedData = async () => {
-    setVideoData(await fetchHomeFeed());
+    setLoading(false);
   };
   useEffect(() => {
     // if (category === "Home") fetchFeedData();

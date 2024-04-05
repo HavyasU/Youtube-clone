@@ -5,16 +5,19 @@ import { fetchChannelVideos } from "../../utils/fetchChannelVideos";
 import VideoCard from "../../components/cards/videoCard";
 import Navbar from "../../components/navbar/Navbar";
 import { GlobalContext } from "../../context/context";
+import Loader from "../../components/cards/loader/loader";
 
 // =w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj
 const ChannelDetails = () => {
   const { id } = useParams();
-  const { navOpen } = useContext(GlobalContext);
+  const { navOpen  ,loading,setLoading} = useContext(GlobalContext);
   const [channelData, setChannelData] = useState({});
   const [channelVideos, setChannelVideos] = useState({});
   const fetchChannel = async () => {
+    setLoading(true)
     setChannelData(await fetchChannelData(id));
     setChannelVideos(await fetchChannelVideos(id));
+    setLoading(false)
   };
   useEffect(() => {
     fetchChannel();
@@ -22,7 +25,7 @@ const ChannelDetails = () => {
   return (
     <>
       <Navbar />
-
+    {loading && <Loader/>}
       {channelData?.items?.length > 0 && (
         <div
           // {channelData Details}
