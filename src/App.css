@@ -1,0 +1,32 @@
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: #171717;
+  color: white;
+}
+* {
+  font-family: sans-serif;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scrollbar-small::-webkit-scrollbar {
+  display: block;
+  width: 10px;
+}
+
+.scrollbar-small::-webkit-scrollbar-track {
+  background: #131212;
+}
+
+.scrollbar-small::-webkit-scrollbar-thumb {
+  background: #ac9f9f;
+}
+
+.scrollbar-small::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  cursor: pointer;
+  height: 20px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
